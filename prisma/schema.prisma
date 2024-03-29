@@ -8,7 +8,7 @@ generator client {
 
 datasource db {
   provider   = "postgresql"
-  url        = env("DATABASE_URL")
+  url        = "postgresql://fl0user:oy8wlPdJSk6g@ep-twilight-silence-32220543.us-east-2.aws.neon.fl0.io:5432/database-planning-poker"
   extensions = [uuidOssp(map: "uuid-ossp")]
 }
 
