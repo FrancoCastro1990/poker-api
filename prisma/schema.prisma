@@ -1,0 +1,29 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [uuidOssp(map: "uuid-ossp")]
+}
+
+model Player {
+  name      String   @unique
+  id        String   @id @default(dbgenerated("uuid_generate_v4()"))
+  games     Game[]   @relation("game_players")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Game {
+  id        String   @id @default(dbgenerated("uuid_generate_v4()"))
+  name      String   @unique
+  users     Player[] @relation("game_players")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
